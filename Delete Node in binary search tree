@@ -1,0 +1,40 @@
+    TreeNode* minNode(TreeNode* node){
+        while(node->left!=NULL)
+            node=node->left;
+        return node;  
+    }
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(root==NULL)
+            return root;
+        if(root->val>key){
+           root->left=deleteNode(root->left,key);
+        }
+        else if(root->val<key)
+            root->right=deleteNode(root->right,key);
+        else{
+            if(root->left==NULL && root->right==NULL)
+            {
+                root=NULL;
+                delete(root);
+            }
+            else if(root->left==NULL)
+            {
+                TreeNode* temp=root;
+                root=root->right;
+                delete(temp);
+            }
+            else if(root->right==NULL)
+            {
+                TreeNode* temp=root;
+                root=root->left;
+                delete(temp);
+            }
+            else{
+                TreeNode* node=minNode(root->right);
+                root->val=node->val;
+                root->right=deleteNode(root->right,node->val);
+            }
+        }
+        return root;
+    }
+};
