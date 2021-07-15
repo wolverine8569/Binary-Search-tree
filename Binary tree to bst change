@@ -1,0 +1,24 @@
+void dfs(Node* root,vector<int>&v){
+        if(root==NULL)
+        return;
+        v.push_back(root->data);
+        dfs(root->left,v);
+        dfs(root->right,v);
+    }
+    void cons(Node* root,vector<int>&v,int &i){
+        if(!root)
+        return;
+        cons(root->left,v,i);
+        root->data=v[i++];
+        cons(root->right,v,i);
+    }
+    Node *binaryTreeToBST (Node *root)
+    {
+        //Your code goes here
+        vector<int>v;
+        dfs(root,v);
+        sort(v.begin(),v.end());
+        int i=0;
+        cons(root,v,i);
+        return root;
+    }
